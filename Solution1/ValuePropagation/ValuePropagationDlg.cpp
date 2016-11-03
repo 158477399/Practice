@@ -100,8 +100,8 @@ BOOL CValuePropagationDlg::OnInitDialog()
 
 	// TODO: Add extra initialization here
 	OnSize_Setting();
-	bool bFlag = IsInitFile();
-	Threshold_Setting(bFlag);
+	IsInitFile();
+	Threshold_Setting();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -167,7 +167,6 @@ void CValuePropagationDlg::OnSize_Setting()
 
 	//1
 	m_iLineHigh += iGapHigh;
-//	GetDlgItem(IDC_CHECK1)->MoveWindow(iLeft, m_iLineHigh, 200, iControlHigh);
 	GetDlgItem(IDC_STATIC_MAX1)->MoveWindow(iLeft + 220, m_iLineHigh, 120, iControlHigh);
 	GetDlgItem(IDC_COMBOX_MAX1)->MoveWindow(iLeft + 345, m_iLineHigh, 60, iControlHigh);
 
@@ -178,7 +177,6 @@ void CValuePropagationDlg::OnSize_Setting()
 
 	//2
 	m_iLineHigh += iGapHigh;
-//	GetDlgItem(IDC_CHECK2)->MoveWindow(iLeft, m_iLineHigh, 200, iControlHigh);
 	GetDlgItem(IDC_STATIC_MAX2)->MoveWindow(iLeft + 220, m_iLineHigh, 120, iControlHigh);
 	GetDlgItem(IDC_COMBOX_MAX2)->MoveWindow(iLeft + 345, m_iLineHigh, 60, iControlHigh);
 
@@ -188,7 +186,6 @@ void CValuePropagationDlg::OnSize_Setting()
 
 	//3
 	m_iLineHigh += iGapHigh;
-//	GetDlgItem(IDC_CHECK3)->MoveWindow(iLeft, m_iLineHigh, 200, iControlHigh);
 	GetDlgItem(IDC_STATIC_MAX3)->MoveWindow(iLeft + 220, m_iLineHigh, 120, iControlHigh);
 	GetDlgItem(IDC_COMBOX_MAX3)->MoveWindow(iLeft + 345, m_iLineHigh, 60, iControlHigh);
 
@@ -198,30 +195,7 @@ void CValuePropagationDlg::OnSize_Setting()
 
 	m_iLineHigh += iGapHigh + iHorzLineHigh;
 	GetDlgItem(IDC_STATIC_HOR)->MoveWindow(iLeft, m_iLineHigh, 600, 1);
-	m_iLineHigh += iHorzLineHigh;
-
-
-// 	CFileFind finder;
-// 
-// 	TCHAR path[MAX_PATH];
-// 	ZeroMemory(path, MAX_PATH);
-// 	GetCurrentDirectory(MAX_PATH, path);
-// 
-// 	CString str = NULL;
-// 	str.Format(_T("%s"), path);
-// 	str.Append(_T("\\ValuePropagationTest.ini"));
-// 	BOOL bFlag = finder.FindFile(str);
-// 
-// 	if( !bFlag )  
-// 	{  
-// 		::WritePrivateProfileStringW(_T("Test One"),_T("Max1"),_T("200"),str);  
-// 		::WritePrivateProfileStringW(_T("Test One"),_T("Min1"),_T("20"),str);  
-// 		::WritePrivateProfileStringW(_T("Test One"),_T("Max2"),_T("200"),str); 
-// 		::WritePrivateProfileStringW(_T("Test One"),_T("Min2"),_T("20"),str);  
-// 		::WritePrivateProfileStringW(_T("Test One"),_T("Max3"),_T("200"),str);
-// 		::WritePrivateProfileStringW(_T("Test One"),_T("Min3"),_T("20"),str);  
-// 	}  
-
+	m_iLineHigh += iHorzLineHigh; 
 }
 
 bool CValuePropagationDlg::IsInitFile()
@@ -241,7 +215,7 @@ bool CValuePropagationDlg::IsInitFile()
 	return bFlag;
 }
 
-void CValuePropagationDlg::Threshold_Setting(bool bFlag)
+void CValuePropagationDlg::Threshold_Setting()
 {
 
 	CString str = NULL;
@@ -261,33 +235,21 @@ void CValuePropagationDlg::Threshold_Setting(bool bFlag)
 		((CComboBox *)GetDlgItem(IDC_COMBOX_MAX3))->AddString(str);
 	}
 
-	// Init File Threshold
-	//if(!bFlag)
-	{
-		::GetPrivateProfileStringW(_T("Test One"),_T("Max1"),_T("200"), str.GetBuffer(MAX_PATH), MAX_PATH, m_strFile);
-		((CComboBox *)GetDlgItem(IDC_COMBOX_MAX1))->SetWindowText(str);
-		::GetPrivateProfileStringW(_T("Test One"),_T("Min1"),_T("20"), str.GetBuffer(MAX_PATH), MAX_PATH, m_strFile);
-		((CComboBox *)GetDlgItem(IDC_COMBOX_MIN1))->SetWindowText(str);
 
-		::GetPrivateProfileStringW(_T("Test One"),_T("Max2"),_T("200"), str.GetBuffer(MAX_PATH), MAX_PATH, m_strFile);
-		((CComboBox *)GetDlgItem(IDC_COMBOX_MAX2))->SetWindowText(str);
-		::GetPrivateProfileStringW(_T("Test One"),_T("Min2"),_T("20"), str.GetBuffer(MAX_PATH), MAX_PATH, m_strFile);
-		((CComboBox *)GetDlgItem(IDC_COMBOX_MIN2))->SetWindowText(str);
+	::GetPrivateProfileStringW(_T("Test One"),_T("Max1"),_T("200"), str.GetBuffer(MAX_PATH), MAX_PATH, m_strFile);
+	((CComboBox *)GetDlgItem(IDC_COMBOX_MAX1))->SetWindowText(str);
+	::GetPrivateProfileStringW(_T("Test One"),_T("Min1"),_T("20"), str.GetBuffer(MAX_PATH), MAX_PATH, m_strFile);
+	((CComboBox *)GetDlgItem(IDC_COMBOX_MIN1))->SetWindowText(str);
 
-		::GetPrivateProfileStringW(_T("Test One"),_T("Max3"),_T("200"),str.GetBuffer(MAX_PATH), MAX_PATH, m_strFile);
-		((CComboBox *)GetDlgItem(IDC_COMBOX_MAX3))->SetWindowText(str);
-		::GetPrivateProfileStringW(_T("Test One"),_T("Min3"),_T("20"), str.GetBuffer(MAX_PATH), MAX_PATH, m_strFile);
-		((CComboBox *)GetDlgItem(IDC_COMBOX_MIN3))->SetWindowText(str);
+	::GetPrivateProfileStringW(_T("Test One"),_T("Max2"),_T("200"), str.GetBuffer(MAX_PATH), MAX_PATH, m_strFile);
+	((CComboBox *)GetDlgItem(IDC_COMBOX_MAX2))->SetWindowText(str);
+	::GetPrivateProfileStringW(_T("Test One"),_T("Min2"),_T("20"), str.GetBuffer(MAX_PATH), MAX_PATH, m_strFile);
+	((CComboBox *)GetDlgItem(IDC_COMBOX_MIN2))->SetWindowText(str);
 
-
-
-// 		::WritePrivateProfileStringW(_T("Test One"),_T("Max1"),_T("200"),m_strFile);  
-// 		::WritePrivateProfileStringW(_T("Test One"),_T("Min1"),_T("20"),m_strFile);  
-// 		::WritePrivateProfileStringW(_T("Test One"),_T("Max2"),_T("200"),m_strFile); 
-// 		::WritePrivateProfileStringW(_T("Test One"),_T("Min2"),_T("20"),m_strFile);  
-// 		::WritePrivateProfileStringW(_T("Test One"),_T("Max3"),_T("200"),m_strFile);
-// 		::WritePrivateProfileStringW(_T("Test One"),_T("Min3"),_T("20"),m_strFile); 
-	}
+	::GetPrivateProfileStringW(_T("Test One"),_T("Max3"),_T("200"),str.GetBuffer(MAX_PATH), MAX_PATH, m_strFile);
+	((CComboBox *)GetDlgItem(IDC_COMBOX_MAX3))->SetWindowText(str);
+	::GetPrivateProfileStringW(_T("Test One"),_T("Min3"),_T("20"), str.GetBuffer(MAX_PATH), MAX_PATH, m_strFile);
+	((CComboBox *)GetDlgItem(IDC_COMBOX_MIN3))->SetWindowText(str);
 }
 
 

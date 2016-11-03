@@ -32,7 +32,7 @@ protected:
 private:
 	void OnSize_Setting();
 	bool IsInitFile();
-	void Threshold_Setting(bool bFlag);
+	void Threshold_Setting();
 
 private:
 	int m_iLineHigh;
