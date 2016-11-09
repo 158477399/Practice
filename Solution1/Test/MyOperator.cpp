@@ -867,18 +867,18 @@ DWORD WINAPI CMyOperator::GetDataThreadProc(LPVOID lp)
 	{
 		
 
-		for(int i = 0 ; i < 3; i++)//取第三帧
-		{
+// 		for(int i = 0 ; i < 3; i++)//取第三帧
+// 		{
 			ReCode = pMyOperator->GetRawData();//读取RawData
-		}
+//		}
 
 		if(ReCode != ERROR_CODE_OK) 
 		{
 			continue;
 		}
 
-		//::SendMessage(pMyOperator->GetDlgHWnd(), ON_MYEVENT_SNED, (WPARAM)(&(pMyOperator->m_RawData)), 0);
-		::PostMessage(pMyOperator->GetDlgHWnd(), ON_MYEVENT_SNED, (WPARAM)(&(pMyOperator->m_RawData)), 0);
+		::SendMessage(pMyOperator->GetDlgHWnd(), ON_MYEVENT_SNED, (WPARAM)(&(pMyOperator->m_RawData)), 0);
+		//::PostMessage(pMyOperator->GetDlgHWnd(), ON_MYEVENT_SNED, (WPARAM)(&(pMyOperator->m_RawData)), 0);
 	}
 
 	pMyOperator->WriteReg(0xFB, ucRawRegData);//恢复原值
